@@ -1,0 +1,15 @@
+//Dada una secuencia de caracteres, determinar la cantidad de palabras de 4 caracteres (letras)
+
+Accion 2111 es 
+	AMBIENTE
+		sec1: secuencia de caracter
+		v1: caracter
+		cont: entero 
+	
+	PROCESO
+		arr(sec1)
+		avz(sec1,v1)
+		cont:= 0
+
+		Mientras NFDS(sec1) hacer
+			
