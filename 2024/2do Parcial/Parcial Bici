@@ -1,5 +1,6 @@
 Accion ParcialBici() es
-    Ambiente
+
+    AMBIENTE
         Bicicletas = Registro
             clave = Claves
             fecha_adquisicion: fecha
@@ -50,14 +51,14 @@ Accion ParcialBici() es
             FinSi
         FinProcedimiento
     
-    Proceso
+    PROCESO
         Abrir E/ (Maestro)
         Abrir E/ (Movimiento)
         Abrir /S (Maestro_Act)
         LeerMaestro()
         LeerMovimiento()
         total_prestamos:=0
-        Esc('Ingresame un circuito particular')
+        Esc("Ingresame un circuito particular")
         Leer(circuito_usuario)
 
         Mientras (mae.clave <> HV) o (mov.clave <> HV) hacer
@@ -71,7 +72,7 @@ Accion ParcialBici() es
                     aux:= mae
                     Mientras (mae.clave = mov.clave) hacer
                         Segun mov.tipo_novedad hacer
-                            =1 Esc('No puede darse de alta una bicicleta que ya exista')
+                            =1 Esc("No puede darse de alta una bicicleta que ya exista")
                             =2: Si mov.circuito_nro = circuito_usuario hacer
                                     total_prestamos:= total_prestamos + 1
                                 FinSi
@@ -90,12 +91,12 @@ Accion ParcialBici() es
                         =1: aux.clave:= mov.clave
                             aux.fecha_adquisicion:= mov.fecha_novedad
                             aux.fecha_ult_mantenimiento:=' '
-                        >1: Esc('Error, solo acepto altas')
+                        >1: Esc("Error, solo acepto altas")
                     FinSegun
                     LeerMovimiento()
                     Mientras (aux.clave = mov.clave) hacer
                         Segun mov.tipo_novedad hacer
-                            =1: Esc('No puede darse de alta una bicicleta que ya exista')
+                            =1: Esc("No puede darse de alta una bicicleta que ya exista")
                             =2: Si mov.circuito_nro = circuito_usuario hacer
                                 total_prestamos:= total_prestamos + 1
                             =3: aux.fecha_ult_mantenimiento:= mov.fecha_novedad
@@ -111,7 +112,7 @@ Accion ParcialBici() es
             FinSi
         FinMientras
 
-        Esc('La cantidad de prestamos para el circuito', circuito_usuario,' fue de:', total_prestamos).
+        Esc("La cantidad de prestamos para el circuito", circuito_usuario," fue de:", total_prestamos).
         Cerrar(Maestro)
         Cerrar(Maestro_Act)
         Cerrar(Movimiento)
