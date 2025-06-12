@@ -1,10 +1,10 @@
 Accion CORTECONTROL
 Jubilar=Registro
-        Regional:AN(3)
-        Carrera:AN(20)
-        Legajo: N(5)
-        Sexo:(M,F)
-        Nombre:AN(30)
+    Regional:AN(3)
+    Carrera:AN(20)
+    Legajo: N(5)
+    Sexo:(M,F)
+    Nombre:AN(30)
 FinRegistro
 
 ArchE: Archivo ordenado por ...........

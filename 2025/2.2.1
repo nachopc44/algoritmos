@@ -1,3 +1,65 @@
-//Dada una secuencia de caracteres de entrada, desarrollar un algoritmo que produzca una secuencia de salida de caracteres; la que contendrá solo los caracteres “numéricos” correspondientes a dígitos impares encontrados en la secuencia de entrada.
-//Ejemplo: Si en la entrada viniera A125EB% en la salida debería ir 15.
-//Al final del proceso informar: Cuantos dígitos impares encontró - Cuantos dígitos pares - Total de caracteres “numéricos” (dígitos) y porcentaje de pares e impares
+//Se dispone de una secuencia con los datos de los alumnos de la facultad:
+//Apellido y Nombre
+//Carrera (ISI - IEM - IQ)
+//Nº de Legajo
+//Fecha de Nacimiento
+//Fecha de Ingreso
+//D.N.I.
+//Sexo (M o F)
+//Fecha de último examen aprobado
+//Nota
+//Se desea un listado de los mismos, con el siguiente formato:
+//Nro_Legajo / Apellido_Nombre / Documento / Carrera
+
+Accion 221 es 
+	AMBIENTE
+		Fecha = Registro
+			AA: N(4)
+			MM: 1...12
+			DD: 1...31
+		FinRegistro
+
+		Alumno = Registro
+			ApellidoNombre: AN(30)
+			Carrera: {"ISI", "IEM", "IQ"}
+			NroLegajo: N(5)
+			FechaNac: Fecha
+			FechaIng: Fecha
+			DNI: N(8)
+			Sexo: {"M", "F"}
+			FechaUltExam: Fecha
+			Nota: N(2)
+		FinRegistro
+
+		Salida = Registro
+			NroLegajo: N(5)
+			ApellidoNombre: AN(30)
+			DNI: N(8)
+			Carrera: {"ISI", "IEM", "IQ"}
+		FinRegistro
+
+		ArchE: archivo de Alumno
+		RegE: Alumno
+		ArchS: archivo de Salida
+		RegS: Salida
+		FechaUs: Fecha
+
+	PROCESO
+		Abrir E/ (ArchE)
+		Leer(ArchE,RegE)
+		Abrir /S (ArchS)
+
+		Mientras NFDA(ArchE) hacer
+			RegS.NroLegajo:= RegE.NroLegajo
+			RegS.ApellidoNombre:= RegE.ApellidoNombre
+			RegS.DNI:= RegE.DNI
+			RegS.Carrera:= RegE.Carrera
+			Grabar(ArchS,RegS)
+			Leer(ArchE,RegE)
+		FinMientras
+		
+		Cerrar(ArchE)
+		Cerrar(ArchS)
+		
+	FinProceso
+FINACCION
