@@ -34,8 +34,11 @@ Accion 2212 es
 
 		Procedimiento corteD() es
 			Escribir("En el departamento ", ResD, " hay ", ContD, " habitantes.")
-			ContP:= ContP + ContD
+			RegS.Provincia:= ResP
 			RegS.Departamento:= ResD
+			RegS.Cantidad_Habitantes:= ContD
+			Escribir(ArchS,RegS)
+			ContP:= ContP + ContD
 			ContD:= 0
 			ResD:= RegE.Departamento
 		FinProcedimiento
@@ -43,8 +46,6 @@ Accion 2212 es
 		Procedimiento corteP() es
 			corteD()
 			Escribir("En la provincia ", ResP, " hay ", ContP, " habitantes.")
-			RegS.Provincia:= ResP
-			RegS.Cantidad_Habitantes:= ContP
 			ContP:= 0 
 			ResP:= RegE.Provincia
 		FinProcedimiento
@@ -53,6 +54,11 @@ Accion 2212 es
 		Abrir E/ (ArchE)
 		Leer(ArchE,RegE)
 		Abrir /S (ArchS)
+
+		ContD:= 0
+		ContP:= 0 
+		ResD:= RegE.Departamento
+		ResP:= RegE.Provincia
 
 		Mientras NFDA(ArchE) hacer
 			Si ResP <> RegE.Provincia entonces
