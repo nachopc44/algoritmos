@@ -27,36 +27,44 @@ Accion 2213 es
 		ResMarc: AN(30)
 		ResMod: AN(30)
 		ResTrag: N(5)
-		ContSuc, ContMarc, ContMod, ContTrag, ContTot: entero
+		ContSuc, CostSuc, ContMarc, CostMarc, ContMod, CostMod, ContTrag, CostTrag, ContTot, CostTot: entero
 
 		Procedimiento corteTrag() es 
-			Escribir("El tragamonedas de codigo ", ResTrag, " tuvo ", ContTrag, " reparaciones")
+			Escribir("El tragamonedas de codigo ", ResTrag, " tuvo ", ContTrag, " reparaciones, con un costo de $", CostTrag)
 			ContMod:= ContMod + ContTrag
 			ContTrag:= 0
+			CostMod:= CostMod + CostTrag
+			CostTrag:= 0
 			ResTrag:= Reg.Cod_Tragamonedas
 		FinProcedimiento
 
 		Procedimiento corteMod() es
 			corteTrag()
-			Escribir("Los tragamonedas de modelo ", ResMod, " tuvieron ", ContMod, " reparaciones")
+			Escribir("Los tragamonedas de modelo ", ResMod, " tuvieron ", ContMod, " reparaciones, con un costo de $", CostMod)
 			ContMarc:= ContMarc + ContMod
 			ContMod:= 0
+			CostMarc:= CostMarc + CostMod
+			CostMod:= 0
 			ResMod:= Reg.Modelo
 		FinProcedimiento
 
 		Procedimiento corteMarc() es
 			corteMod()
-			Escribir("Los tragamonedas de la marca ", ResMarc, " tuvieron ", ContMarc, " reparaciones")
+			Escribir("Los tragamonedas de la marca ", ResMarc, " tuvieron ", ContMarc, " reparaciones, con un costo de $", CostMarc)
 			ContSuc:= ContSuc + ContMarc
 			ContMarc:= 0
+			CostSuc:= CostSuc + CostMarc
+			CostMarc:= 0
 			ResMarc:= Reg.Marca
 		FinProcedimiento
 
 		Procedimiento corteSuc() es
 			corteMarc()
-			Escribir("En la sucursal ", ResSuc, " hubieron ", ContSuc, " reparaciones")
+			Escribir("En la sucursal ", ResSuc, " hubieron ", ContSuc, " reparaciones, con un costo de $", CostSuc)
 			ContTot:= ContTot + ContSuc
 			ContSuc:= 0
+			CostTot:= CostTot + CostSuc
+			CostSuc:= 0 
 			ResSuc:= Reg.Cod_Sucursal
 		FinProcedimiento
 
@@ -64,11 +72,11 @@ Accion 2213 es
 		Abrir E/ (Arch)
 		Leer(Arch,Reg)
 
-		ContSuc:= 0 
-		ContMarc:= 0
-		ContMod:= 0 
-		ContTrag:= 0 
-		ContTot:= 0
+		ContSuc:= 0 ; CostSuc:= 0
+		ContMarc:= 0 ; CostMarc:= 0
+		ContMod:= 0 ; CostMod:= 0
+		ContTrag:= 0 ; CostTrag:= 0
+		ContTot:= 0 ; CostTot:= 0
 
 		ResSuc:= Reg.Cod_Sucursal
 		ResMarc:= Reg.Marca
@@ -93,13 +101,12 @@ Accion 2213 es
 			FinSi
 
 			ContTrag:= ContTrag + 1
+			CostTrag:= CostTrag + Reg.Costo_Reparacion
 			Leer(Arch,Reg)
 		FinMientras
 
 		corteSuc()
-		
-		Escribir("En total hubo ", ContTot, " reparaciones")
-
+		Escribir("En total hubo ", ContTot, " reparaciones, con un costo de $", CostTot)
 		Cerrar(Arch)
 	FinProceso
 FINACCION
