@@ -1,5 +1,3 @@
-EJERCICIO 1:
-
 Accion E1 es 
     AMBIENTE
         sec1: secuencia de caracter 
@@ -74,5 +72,99 @@ Accion E1 es
         cerrar(sec1)
         cerrar(sec2)
         cerrar(secS)
+    FinProceso
+FINACCION
+
+
+Accion E2 es
+    AMBIENTE
+        Fecha = Registro
+            DD: 1...31
+            MM: {6}
+            AA: N(4)
+        FinRegistro
+
+        VENTAS = Registro 
+            NroCaja: N(2)
+            FormaPago: {"EF","TD","TC"}
+            NroTicket: N(4)
+            FechaVenta: Fecha 
+            CantArticulos: N(2)
+            ImpVenta: N(7)
+        FinRegistro
+
+        Salida = Registro
+            NroCaja: N(2)
+            TotArtEF: N(7)
+            TotArtT: N(7)
+        FinRegistro
+        
+        ArchE: archivo de VENTAS ordenado por NroCaja, FormaPago, NroTicket
+        RegE: VENTAS
+        ResNroCaja: N(2)
+        ResFormaPago: {"EF","TD","TC"}
+
+        ArchS: archivo de Salida
+        RegS: Salida
+        
+        ContEF, ContT, ContFP, ContCaja: entero
+
+        Procedimiento corteFP() es 
+            Escribir("En ", ResFormaPago, " se pagaron ", ContFP, " articulos")
+            ContCaja:= ContCaja + ContFP
+            ContFP:= 0 
+            ResFormaPago:= RegE.FormaPago
+        FinProcedimiento
+
+        Procedimiento corteCaja() es
+            corteFP() 
+            Escribir("En la caja nro ", ResNroCaja, " se vendieron ", ContCaja, " articulos")
+            Si (ContT < ContEF) entonces
+                Escribir("La caja nro ", ResNroCaja, " vendio mas articulos en efectivo que con tarjeta")
+            FinSi
+            ContCaja:= 0 
+            RegS.NroCaja:= ResNroCaja
+            RegS.TotArtEF:= ContEF
+            RegS.TotArtT:= ContT
+            Grabar(ArchS,RegS)
+            ContEF:= 0
+            ContT:= 0 
+        FinProcedimiento
+    
+    PROCESO
+        Abrir E/ (ArchE)
+        Leer(ArchE,RegE)
+        Abrir /S (ArchS)
+
+        ContEF:= 0
+        ContT:= 0
+        ContFP:= 0
+        ContCaja:= 0
+
+        ResNroCaja:= RegE.NroCaja
+        ResFormaPago:= RegE.FormaPago
+
+        Mientras NFDA(ArchE) hacer
+            Si (ResNroCaja <> RegE.NroCaja) entonces
+                corteCaja()
+            Sino
+                Si (ResFormaPago <> RegE.FormaPago) entonces
+                    corteFP()
+                FinSi
+            FinSi
+
+            Segun RegE.FormaPago hacer
+                ="EF": ContEF:= ContEF + RegE.CantArticulos
+                ="TD": ContT:= ContT + RegE.CantArticulos
+                ="TC": ContT:= ContT + RegE.CantArticulos
+            FinSegun
+
+            Leer(ArchE,RegE)
+        FinMientras
+
+        corteCaja()
+
+        Cerrar(ArchE)
+        Cerrar(ArchS)
     FinProceso
 FINACCION
