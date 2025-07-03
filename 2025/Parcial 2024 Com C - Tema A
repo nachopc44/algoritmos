@@ -1,0 +1,78 @@
+EJERCICIO 1:
+
+Accion E1 es 
+    AMBIENTE
+        sec1: secuencia de caracter 
+        v1: caracter
+        sec2: secuencia de entero
+        v2: entero
+        secS: secuencia de entero
+
+        impactual, mayorimp, cantickets, nroticket, mayorticket, i: entero
+        sucactual, mayorsuc: AN(30)
+
+    PROCESO
+        arr(sec1)
+        avz(sec1,v1)
+        arr(sec2)
+        avz(sec2,v2)
+        crear(secS)
+
+        impactual:=0
+        mayorimp:=0
+        cantickets:=0
+        nroticket:=0
+        mayorticket:=0
+        sucactual:=""
+        mayorsuc:=""
+
+        Mientras NFDS(sec1) o NFDS(sec2) hacer
+            sucactual:=""
+            Mientras (v1<>"&") hacer
+                sucactual:= sucactual + v1
+                avz(sec1,v1)
+            FinMientras
+            avz(sec1,v1)
+            cantickets:=0
+            Para i:= 1 hasta 3 hacer
+                cantickets:= (cantickets*10) + ConvertiraNumero(v1)
+                avz(sec1,v1)
+            FinPara
+            avz(sec1,v1)
+
+            Para i:= 1 hasta cantickets hacer
+                avz(sec2,v2)
+                avz(sec2,v2)
+                nroticket:=0
+                Mientras (v2<>"|") hacer
+                    nroticket:= (nroticket * 10) + v2
+                    avz(sec2,v2)
+                FinMientras
+                avz(sec2,v2)
+                avz(sec2,v2)
+                avz(sec2,v2)
+                impactual:=0 
+                Mientras (v2<>"|") hacer
+                    impactual:= (impactual * 10) + v2
+                    avz(sec2,v2)
+                FinMientras
+                avz(sec2,v2)
+                Si (impactual>50000) entonces
+                    Grabar(secS,nroticket)
+                    Grabar(secS," ")
+                    Grabar(secS,impactual)
+                    Grabar(secS,"|")
+                FinSi
+                Si (impactual>mayorimp) entonces
+                    mayorimp:= impactual
+                    mayorticket:= nroticket
+                FinSi
+            FinPara
+
+            Escribir("En la sucursal de ", sucactual, " el ticket numero ", mayorticket, " es el de mayor importe, siendo este de $", mayorimp)
+        FinMientras
+        cerrar(sec1)
+        cerrar(sec2)
+        cerrar(secS)
+    FinProceso
+FINACCION
