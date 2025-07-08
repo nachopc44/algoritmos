@@ -12,4 +12,6 @@ Accion 2215 es
 		ALUMNOS = Registro
 			Escuela: AN(30)
 			Año: N(1)
-			
+			División: AN(1)
+			Nombre: AN(30)
+			Cant_Inasistencias: N(2)
