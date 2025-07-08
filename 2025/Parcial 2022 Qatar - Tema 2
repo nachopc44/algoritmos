@@ -1,0 +1,60 @@
+Accion SecQatar es 
+	AMBIENTE
+		secE: secuencia de caracter
+		v1: caracter
+		secS: secuencia de entero
+		ContEm, ContPa, ContPr, ContUs: entero
+		ZonaUs: caracter
+
+	PROCESO
+		arr(secE)
+		avz(secE,v1)
+		crear(secS)
+		ContEm:= 0
+		ContPa:= 0
+		ContPr:= 0
+
+		Mientras NFDS(secE) hacer
+			ContEm:= 0
+			ContPa:= 0
+			ContPr:= 0
+			ContUs:= 0
+
+			Escribir("Ingrese la zona que desea analizar")
+			Leer(ZonaUs)
+
+			Mientras v1<>"@" hacer
+				Mientras v1<>"#" hacer
+					avz(secE,v1)
+				FinMientras
+				avz(secE,v1)
+				Mientras v1<>"@" hacer
+					Mientras v1<>"_" hacer
+						Segun v1 hacer
+							="E": ContEm:= ContEm + 1
+							="P": ContPa:= ContPa + 1
+							="Y": ContPr:= ContPr + 1
+						FinSegun
+						Mientras v1<>"%" hacer
+							avz(secE,v1)
+						FinMientras
+						avz(secE,v1)
+						Si v1=ZonaUs entonces
+							ContUs:= ContUs + 1
+						FinSi
+						Mientras v1<>"_" hacer
+							avz(secE,v1)
+						FinMientras
+					FinMientras
+					avz(secE,v1)
+				FinMientras
+				avz(secE,v1)
+				Grabar(secS,ContEm+ContPa+ContPr)
+				Grabar(secS,-1) //Marca de separacion entre estadios 
+				Escribir("Hubieron ", ContEm, " reservas de empresa, ", ContPa, " de particular y ", ContPr, " de protocolo. De las cuales ", ContUs, " pertenecen a la zona ", ZonaUs)
+			FinMientras
+			Cerrar(secE)
+			Cerrar(secS)
+		FinMientras
+	FinProceso
+FINACCION
